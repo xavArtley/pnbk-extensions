@@ -1,0 +1,15 @@
+{
+  "name": "pnbkext",
+  "version": "0.0.1",
+  "description": "",
+  "license": "BSD-3-Clause",
+  "keywords": [],
+  "repository": {},
+  "dependencies": {
+    "@bokeh/bokehjs": "^2.0.1",
+    "@lumino/datagrid": "^0.8.0",
+    "@lumino/widgets": "^1.13.0"
+  },
+  "devDependencies": {},
+  "main": "dist/pnbkext.js"
+}

@@ -1,0 +1,1317 @@
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ body.p-mod-override-cursor *, /* </DEPRECATED> */
+body.lm-mod-override-cursor * {
+  cursor: inherit !important;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-Widget, /* </DEPRECATED> */
+.lm-Widget {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+
+/* <DEPRECATED> */ .p-Widget.p-mod-hidden, /* </DEPRECATED> */
+.lm-Widget.lm-mod-hidden {
+  display: none !important;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-CommandPalette, /* </DEPRECATED> */
+.lm-CommandPalette {
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-search, /* </DEPRECATED> */
+.lm-CommandPalette-search {
+  flex: 0 0 auto;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-content, /* </DEPRECATED> */
+.lm-CommandPalette-content {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+  overflow: auto;
+  list-style-type: none;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-header, /* </DEPRECATED> */
+.lm-CommandPalette-header {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-item, /* </DEPRECATED> */
+.lm-CommandPalette-item {
+  display: flex;
+  flex-direction: row;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemIcon, /* </DEPRECATED> */
+.lm-CommandPalette-itemIcon {
+  flex: 0 0 auto;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemContent, /* </DEPRECATED> */
+.lm-CommandPalette-itemContent {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemShortcut, /* </DEPRECATED> */
+.lm-CommandPalette-itemShortcut {
+  flex: 0 0 auto;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemLabel, /* </DEPRECATED> */
+.lm-CommandPalette-itemLabel {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.lm-close-icon {
+	border:1px solid transparent;
+  background-color: transparent;
+  position: absolute;
+	z-index:1;
+	right:3%;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	padding: 7px 0;
+	display: none;
+	vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+.lm-close-icon:after {
+	content: "X";
+	display: block;
+	width: 15px;
+	height: 15px;
+	text-align: center;
+	color:#000;
+	font-weight: normal;
+	font-size: 12px;
+	cursor: pointer;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-DockPanel, /* </DEPRECATED> */
+.lm-DockPanel {
+  z-index: 0;
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-widget, /* </DEPRECATED> */
+.lm-DockPanel-widget {
+  z-index: 0;
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-tabBar, /* </DEPRECATED> */
+.lm-DockPanel-tabBar {
+  z-index: 1;
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-handle, /* </DEPRECATED> */
+.lm-DockPanel-handle {
+  z-index: 2;
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-handle.p-mod-hidden, /* </DEPRECATED> */
+.lm-DockPanel-handle.lm-mod-hidden {
+  display: none !important;
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-handle:after, /* </DEPRECATED> */
+.lm-DockPanel-handle:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+}
+
+
+/* <DEPRECATED> */
+.p-DockPanel-handle[data-orientation='horizontal'],
+/* </DEPRECATED> */
+.lm-DockPanel-handle[data-orientation='horizontal'] {
+  cursor: ew-resize;
+}
+
+
+/* <DEPRECATED> */
+.p-DockPanel-handle[data-orientation='vertical'],
+/* </DEPRECATED> */
+.lm-DockPanel-handle[data-orientation='vertical'] {
+  cursor: ns-resize;
+}
+
+
+/* <DEPRECATED> */
+.p-DockPanel-handle[data-orientation='horizontal']:after,
+/* </DEPRECATED> */
+.lm-DockPanel-handle[data-orientation='horizontal']:after {
+  left: 50%;
+  min-width: 8px;
+  transform: translateX(-50%);
+}
+
+
+/* <DEPRECATED> */
+.p-DockPanel-handle[data-orientation='vertical']:after,
+/* </DEPRECATED> */
+.lm-DockPanel-handle[data-orientation='vertical']:after {
+  top: 50%;
+  min-height: 8px;
+  transform: translateY(-50%);
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-overlay, /* </DEPRECATED> */
+.lm-DockPanel-overlay {
+  z-index: 3;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+
+/* <DEPRECATED> */ .p-DockPanel-overlay.p-mod-hidden, /* </DEPRECATED> */
+.lm-DockPanel-overlay.lm-mod-hidden {
+  display: none !important;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-Menu, /* </DEPRECATED> */
+.lm-Menu {
+  z-index: 10000;
+  position: absolute;
+  white-space: nowrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-content, /* </DEPRECATED> */
+.lm-Menu-content {
+  margin: 0;
+  padding: 0;
+  display: table;
+  list-style-type: none;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-item, /* </DEPRECATED> */
+.lm-Menu-item {
+  display: table-row;
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-item.p-mod-hidden,
+.p-Menu-item.p-mod-collapsed,
+/* </DEPRECATED> */
+.lm-Menu-item.lm-mod-hidden,
+.lm-Menu-item.lm-mod-collapsed {
+  display: none !important;
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-itemIcon,
+.p-Menu-itemSubmenuIcon,
+/* </DEPRECATED> */
+.lm-Menu-itemIcon,
+.lm-Menu-itemSubmenuIcon {
+  display: table-cell;
+  text-align: center;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemLabel, /* </DEPRECATED> */
+.lm-Menu-itemLabel {
+  display: table-cell;
+  text-align: left;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemShortcut, /* </DEPRECATED> */
+.lm-Menu-itemShortcut {
+  display: table-cell;
+  text-align: right;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-MenuBar, /* </DEPRECATED> */
+.lm-MenuBar {
+  outline: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* <DEPRECATED> */ .p-MenuBar-content, /* </DEPRECATED> */
+.lm-MenuBar-content {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+
+/* <DEPRECATED> */ .p--MenuBar-item, /* </DEPRECATED> */
+.lm-MenuBar-item {
+  box-sizing: border-box;
+}
+
+
+/* <DEPRECATED> */
+.p-MenuBar-itemIcon,
+.p-MenuBar-itemLabel,
+/* </DEPRECATED> */
+.lm-MenuBar-itemIcon,
+.lm-MenuBar-itemLabel {
+  display: inline-block;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-ScrollBar, /* </DEPRECATED> */
+.lm-ScrollBar {
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='horizontal'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='horizontal'] {
+  flex-direction: row;
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='vertical'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-button, /* </DEPRECATED> */
+.lm-ScrollBar-button {
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-track, /* </DEPRECATED> */
+.lm-ScrollBar-track {
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-thumb, /* </DEPRECATED> */
+.lm-ScrollBar-thumb {
+  box-sizing: border-box;
+  position: absolute;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-SplitPanel-child, /* </DEPRECATED> */
+.lm-SplitPanel-child {
+  z-index: 0;
+}
+
+
+/* <DEPRECATED> */ .p-SplitPanel-handle, /* </DEPRECATED> */
+.lm-SplitPanel-handle {
+  z-index: 1;
+}
+
+
+/* <DEPRECATED> */ .p-SplitPanel-handle.p-mod-hidden, /* </DEPRECATED> */
+.lm-SplitPanel-handle.lm-mod-hidden {
+  display: none !important;
+}
+
+
+/* <DEPRECATED> */ .p-SplitPanel-handle:after, /* </DEPRECATED> */
+.lm-SplitPanel-handle:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  content: '';
+}
+
+
+/* <DEPRECATED> */
+.p-SplitPanel[data-orientation='horizontal'] > .p-SplitPanel-handle,
+/* </DEPRECATED> */
+.lm-SplitPanel[data-orientation='horizontal'] > .lm-SplitPanel-handle {
+  cursor: ew-resize;
+}
+
+
+/* <DEPRECATED> */
+.p-SplitPanel[data-orientation='vertical'] > .p-SplitPanel-handle,
+/* </DEPRECATED> */
+.lm-SplitPanel[data-orientation='vertical'] > .lm-SplitPanel-handle {
+  cursor: ns-resize;
+}
+
+
+/* <DEPRECATED> */
+.p-SplitPanel[data-orientation='horizontal'] > .p-SplitPanel-handle:after,
+/* </DEPRECATED> */
+.lm-SplitPanel[data-orientation='horizontal'] > .lm-SplitPanel-handle:after {
+  left: 50%;
+  min-width: 8px;
+  transform: translateX(-50%);
+}
+
+
+/* <DEPRECATED> */
+.p-SplitPanel[data-orientation='vertical'] > .p-SplitPanel-handle:after,
+/* </DEPRECATED> */
+.lm-SplitPanel[data-orientation='vertical'] > .lm-SplitPanel-handle:after {
+  top: 50%;
+  min-height: 8px;
+  transform: translateY(-50%);
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-TabBar, /* </DEPRECATED> */
+.lm-TabBar {
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar[data-orientation='horizontal'], /* </DEPRECATED> */
+.lm-TabBar[data-orientation='horizontal'] {
+  flex-direction: row;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar[data-orientation='vertical'], /* </DEPRECATED> */
+.lm-TabBar[data-orientation='vertical'] {
+  flex-direction: column;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-content, /* </DEPRECATED> */
+.lm-TabBar-content {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex: 1 1 auto;
+  list-style-type: none;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar[data-orientation='horizontal'] > .p-TabBar-content,
+/* </DEPRECATED> */
+.lm-TabBar[data-orientation='horizontal'] > .lm-TabBar-content {
+  flex-direction: row;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar[data-orientation='vertical'] > .p-TabBar-content,
+/* </DEPRECATED> */
+.lm-TabBar[data-orientation='vertical'] > .lm-TabBar-content {
+  flex-direction: column;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab, /* </DEPRECATED> */
+.lm-TabBar-tab {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar-tabIcon,
+.p-TabBar-tabCloseIcon,
+/* </DEPRECATED> */
+.lm-TabBar-tabIcon,
+.lm-TabBar-tabCloseIcon {
+  flex: 0 0 auto;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tabLabel, /* </DEPRECATED> */
+.lm-TabBar-tabLabel {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab.p-mod-hidden, /* </DEPRECATED> */
+.lm-TabBar-tab.lm-mod-hidden {
+  display: none !important;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar.p-mod-dragging .p-TabBar-tab, /* </DEPRECATED> */
+.lm-TabBar.lm-mod-dragging .lm-TabBar-tab {
+  position: relative;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar.p-mod-dragging[data-orientation='horizontal'] .p-TabBar-tab,
+/* </DEPRECATED> */
+.lm-TabBar.lm-mod-dragging[data-orientation='horizontal'] .lm-TabBar-tab {
+  left: 0;
+  transition: left 150ms ease;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar.p-mod-dragging[data-orientation='vertical'] .p-TabBar-tab,
+/* </DEPRECATED> */
+.lm-TabBar.lm-mod-dragging[data-orientation='vertical'] .lm-TabBar-tab {
+  top: 0;
+  transition: top 150ms ease;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar.p-mod-dragging .p-TabBar-tab.p-mod-dragging
+/* </DEPRECATED> */
+.lm-TabBar.lm-mod-dragging .lm-TabBar-tab.lm-mod-dragging {
+  transition: none;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-TabPanel-tabBar, /* </DEPRECATED> */
+.lm-TabPanel-tabBar {
+  z-index: 1;
+}
+
+
+/* <DEPRECATED> */ .p-TabPanel-stackedPanel, /* </DEPRECATED> */
+.lm-TabPanel-stackedPanel {
+  z-index: 0;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-CommandPalette, /* </DEPRECATED> */
+.lm-CommandPalette {
+  font-family: sans-serif;
+  background: #F5F5F5;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-search, /* </DEPRECATED> */
+.lm-CommandPalette-search {
+  padding: 8px;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-wrapper, /* </DEPRECATED> */
+.lm-CommandPalette-wrapper {
+  padding: 4px 6px;
+  background: white;
+  border: 1px solid #E0E0E0;
+  position: relative;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-input, /* </DEPRECATED> */
+.lm-CommandPalette-input {
+  width: 92%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-header, /* </DEPRECATED> */
+.lm-CommandPalette-header {
+  padding: 4px;
+  color: #757575;
+  font-size: 12px;
+  font-weight: 600;
+  background: #E1E1E1;
+  cursor: pointer;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-header:hover::before, /* </DEPRECATED> */
+.lm-CommandPalette-header:hover::before {
+  content: '\2026'; /* ellipsis */
+  float: right;
+  margin-right: 4px;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-header > mark, /* </DEPRECATED> */
+.lm-CommandPalette-header > mark {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-item, /* </DEPRECATED> */
+.lm-CommandPalette-item {
+  padding: 4px 8px;
+  color: #757575;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-emptyMessage, /* </DEPRECATED> */
+.lm-CommandPalette-emptyMessage {
+  padding: 4px;
+  color: #757575;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-item.p-mod-disabled, /* </DEPRECATED> */
+.lm-CommandPalette-item.lm-mod-disabled {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-item.p-mod-active, /* </DEPRECATED> */
+.lm-CommandPalette-item.lm-mod-active {
+  background: #7FDBFF;
+}
+
+
+/* <DEPRECATED> */
+.p-CommandPalette-item:hover:not(.p-mod-active):not(.p-mod-disabled),
+/* </DEPRECATED> */
+.lm-CommandPalette-item:hover:not(.lm-mod-active):not(.lm-mod-disabled) {
+  background: #E5E5E5;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemIcon, /* </DEPRECATED> */
+.lm-CommandPalette-itemIcon {
+  display: none;
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemLabel > mark, /* </DEPRECATED> */
+.lm-CommandPalette-itemLabel > mark {
+  background-color: transparent;
+  font-weight: bold;
+}
+
+
+/* <DEPRECATED> */
+.p-CommandPalette-item.p-mod-disabled mark,
+/* </DEPRECATED> */
+.lm-CommandPalette-item.lm-mod-disabled mark {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+
+/* <DEPRECATED> */ .p-CommandPalette-itemCaption, /* </DEPRECATED> */
+.lm-CommandPalette-itemCaption {
+  color: #9E9E9E;
+  font-size: 11px;
+  font-weight: 400;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2018, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-DataGrid, /* </DEPRECATED> */
+.lm-DataGrid {
+  min-width: 64px;
+  min-height: 64px;
+  border: 1px solid #A0A0A0;
+}
+
+
+/* <DEPRECATED> */ .p-DataGrid-scrollCorner, /* </DEPRECATED> */
+.lm-DataGrid-scrollCorner {
+  background-color: #F0F0F0;
+}
+
+
+/* <DEPRECATED> */ .p-DataGrid-scrollCorner::after, /* </DEPRECATED> */
+.lm-DataGrid-scrollCorner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  background-color: #A0A0A0;
+}
+
+.lm-DataGrid-cellEditorOccluder {
+  pointer-events: none;
+  position: absolute;
+  overflow: hidden;
+}
+
+.lm-DataGrid-cellEditorContainer {
+  pointer-events: auto;
+  position: absolute;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 6px #006bf7;
+  border: 2px solid #006bf7;
+}
+
+.lm-DataGrid-cellEditorContainer.lm-mod-invalid {
+  box-shadow: 0px 0px 6px red;
+  border: 2px solid red;
+}
+
+.lm-DataGrid-cellEditorContainer > form {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.lm-DataGrid-cellEditorWidget {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.lm-DataGrid-cellEditorInput {
+  background-color: #ffffff;
+  border: 0;
+}
+
+.lm-DataGrid-cellEditorCheckbox {
+  margin: 0;
+}
+
+.lm-DataGrid-notification {
+  position: absolute;
+  display: flex;
+  overflow: visible;
+  animation: fade-in 300ms ease-out;
+}
+
+.lm-DataGrid-notificationContainer {
+  box-shadow: 0px 2px 5px #999999;
+  border-radius: 3px;
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  font-family: sans-serif;
+  font-size: 13px;
+  padding: 4px;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-DockPanel-overlay, /* </DEPRECATED> */
+.lm-DockPanel-overlay {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px dashed black;
+  transition-property: top, left, right, bottom;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-Menu, /* </DEPRECATED> */
+.lm-Menu {
+  padding: 3px 0px;
+  background: white;
+  color: rgba(0, 0, 0, 0.87);
+  border: 1px solid #C0C0C0;
+  font: 12px Helvetica, Arial, sans-serif;
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+/* <DEPRECATED> */ .p-Menu-item.p-mod-active, /* </DEPRECATED> */
+.lm-Menu-item.lm-mod-active {
+  background: #E5E5E5;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-item.p-mod-disabled, /* </DEPRECATED> */
+.lm-Menu-item.lm-mod-disabled {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemIcon, /* </DEPRECATED> */
+.lm-Menu-itemIcon {
+  width: 21px;
+  padding: 4px 2px;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemLabel, /* </DEPRECATED> */
+.lm-Menu-itemLabel {
+  padding: 4px 35px 4px 2px;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemMnemonic, /* </DEPRECATED> */
+.lm-Menu-itemMnemonic {
+  text-decoration: underline;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemShortcut, /* </DEPRECATED> */
+.lm-Menu-itemShortcut {
+  padding: 4px 0px;
+}
+
+
+/* <DEPRECATED> */ .p-Menu-itemSubmenuIcon, /* </DEPRECATED> */
+.lm-Menu-itemSubmenuIcon {
+  width: 16px;
+  padding: 4px 0px;
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-item[data-type='separator'] > div,
+/* </DEPRECATED> */
+.lm-Menu-item[data-type='separator'] > div {
+  padding: 0;
+  height: 9px;
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-item[data-type='separator'] > div::after,
+/* </DEPRECATED> */
+.lm-Menu-item[data-type='separator'] > div::after {
+  content: '';
+  display: block;
+  position: relative;
+  top: 4px;
+  border-top: 1px solid #DDDDDD;
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-itemIcon::before,
+.p-Menu-itemSubmenuIcon::before,
+/* </DEPRECATED> */
+.lm-Menu-itemIcon::before,
+.lm-Menu-itemSubmenuIcon::before {
+  font-family: FontAwesome;
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-item.lm-mod-toggled > .p-Menu-itemIcon::before,
+/* </DEPRECATED> */
+.lm-Menu-item.lm-mod-toggled > .lm-Menu-itemIcon::before {
+  content: '\f00c';
+}
+
+
+/* <DEPRECATED> */
+.p-Menu-item[data-type='submenu'] > .p-Menu-itemSubmenuIcon::before,
+/* </DEPRECATED> */
+.lm-Menu-item[data-type='submenu'] > .lm-Menu-itemSubmenuIcon::before {
+  content: '\f0da';
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-MenuBar, /* </DEPRECATED> */
+.lm-MenuBar {
+  padding-left: 5px;
+  background: #FAFAFA;
+  color: rgba(0, 0, 0, 0.87);
+  border-bottom: 1px solid #DDDDDD;
+  font: 13px Helvetica, Arial, sans-serif;
+}
+
+
+/* <DEPRECATED> */ .p-MenuBar-menu, /* </DEPRECATED> */
+.lm-MenuBar-menu {
+  transform: translateY(-1px);
+}
+
+
+/* <DEPRECATED> */ .p-MenuBar-item, /* </DEPRECATED> */
+.lm-MenuBar-item {
+  padding: 4px 8px;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+}
+
+
+/* <DEPRECATED> */ .p-MenuBar-item.p-mod-active, /* </DEPRECATED> */
+.lm-MenuBar-item.lm-mod-active {
+  background: #E5E5E5;
+}
+
+
+/* <DEPRECATED> */
+.p-MenuBar.p-mod-active .p-MenuBar-item.p-mod-active,
+/* </DEPRECATED> */
+.lm-MenuBar.lm-mod-active .lm-MenuBar-item.lm-mod-active {
+  z-index: 10001;
+  background: white;
+  border-left: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='horizontal'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='horizontal'] {
+  min-height: 16px;
+  max-height: 16px;
+  min-width: 45px;
+  border-top: 1px solid #A0A0A0;
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='vertical'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='vertical'] {
+  min-width: 16px;
+  max-width: 16px;
+  min-height: 45px;
+  border-left: 1px solid #A0A0A0;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-button, /* </DEPRECATED> */
+.lm-ScrollBar-button {
+  background-color: #F0F0F0;
+  background-position: center center;
+  min-height: 15px;
+  max-height: 15px;
+  min-width: 15px;
+  max-width: 15px;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-button:hover, /* </DEPRECATED> */
+.lm-ScrollBar-button:hover {
+  background-color: #DADADA;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-button.p-mod-active, /* </DEPRECATED> */
+.lm-ScrollBar-button.lm-mod-active {
+  background-color: #CDCDCD;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-track, /* </DEPRECATED> */
+.lm-ScrollBar-track {
+  background: #F0F0F0;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-thumb, /* </DEPRECATED> */
+.lm-ScrollBar-thumb {
+  background: #CDCDCD;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-thumb:hover, /* </DEPRECATED> */
+.lm-ScrollBar-thumb:hover {
+  background: #BABABA;
+}
+
+
+/* <DEPRECATED> */ .p-ScrollBar-thumb.lm-mod-active, /* </DEPRECATED> */
+.lm-ScrollBar-thumb.lm-mod-active {
+  background: #A0A0A0;
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='horizontal'] .p-ScrollBar-thumb,
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='horizontal'] .lm-ScrollBar-thumb {
+  height: 100%;
+  min-width: 15px;
+  border-left: 1px solid #A0A0A0;
+  border-right: 1px solid #A0A0A0;
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='vertical'] .p-ScrollBar-thumb,
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='vertical'] .lm-ScrollBar-thumb {
+  width: 100%;
+  min-height: 15px;
+  border-top: 1px solid #A0A0A0;
+  border-bottom: 1px solid #A0A0A0;
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='horizontal'] .p-ScrollBar-button[data-action='decrement'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='horizontal'] .lm-ScrollBar-button[data-action='decrement'] {
+  background-image: url(build995a1d96b1fef026c61ac03f4c6ff841.png);
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='horizontal'] .p-ScrollBar-button[data-action='increment'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='horizontal'] .lm-ScrollBar-button[data-action='increment'] {
+  background-image: url(build200b3fc810ff360a023c4cc309f77e5a.png);
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='vertical'] .p-ScrollBar-button[data-action='decrement'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='vertical'] .lm-ScrollBar-button[data-action='decrement'] {
+  background-image: url(build1c8b268ec020a3aa5cd211cdda05fe2b.png);
+}
+
+
+/* <DEPRECATED> */
+.p-ScrollBar[data-orientation='vertical'] .p-ScrollBar-button[data-action='increment'],
+/* </DEPRECATED> */
+.lm-ScrollBar[data-orientation='vertical'] .lm-ScrollBar-button[data-action='increment'] {
+  background-image: url(build7a564d5604efdab6ca2325dcced48457.png);
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) Jupyter Development Team.
+| Copyright (c) 2014-2017, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+
+
+/* <DEPRECATED> */ .p-TabBar, /* </DEPRECATED> */
+.lm-TabBar {
+  min-height: 24px;
+  max-height: 24px;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-content, /* </DEPRECATED> */
+.lm-TabBar-content {
+  min-width: 0;
+  min-height: 0;
+  align-items: flex-end;
+  border-bottom: 1px solid #C0C0C0;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab, /* </DEPRECATED> */
+.lm-TabBar-tab {
+  padding: 0px 10px;
+  background: #E5E5E5;
+  border: 1px solid #C0C0C0;
+  border-bottom: none;
+  font: 12px Helvetica, Arial, sans-serif;
+  flex: 0 1 125px;
+  min-height: 20px;
+  max-height: 20px;
+  min-width: 35px;
+  margin-left: -1px;
+  line-height: 20px;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab.p-mod-current, /* </DEPRECATED> */
+.lm-TabBar-tab.lm-mod-current {
+  background: white;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab:hover:not(.p-mod-current), /* </DEPRECATED> */
+.lm-TabBar-tab:hover:not(.lm-mod-current) {
+  background: #F0F0F0;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab:first-child, /* </DEPRECATED> */
+.lm-TabBar-tab:first-child {
+  margin-left: 0;
+}
+
+
+/* <DEPRECATED> */ .p-TabBar-tab.p-mod-current, /* </DEPRECATED> */
+.lm-TabBar-tab.lm-mod-current {
+  min-height: 23px;
+  max-height: 23px;
+  transform: translateY(1px);
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar-tabIcon,
+.p-TabBar-tabLabel,
+.p-TabBar-tabCloseIcon,
+/* </DEPRECATED> */
+.lm-TabBar-tabIcon,
+.lm-TabBar-tabLabel,
+.lm-TabBar-tabCloseIcon {
+  display: inline-block;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon,
+/* </DEPRECATED> */
+.lm-TabBar-tab.lm-mod-closable > .lm-TabBar-tabCloseIcon {
+  margin-left: 4px;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar-tab.p-mod-closable > .p-TabBar-tabCloseIcon:before,
+/* </DEPRECATED> */
+.lm-TabBar-tab.lm-mod-closable > .lm-TabBar-tabCloseIcon:before {
+  content: '\f00d';
+  font-family: FontAwesome;
+}
+
+
+/* <DEPRECATED> */
+.p-TabBar-tab.p-mod-drag-image,
+/* </DEPRECATED> */
+.lm-TabBar-tab.lm-mod-drag-image {
+  min-height: 23px;
+  max-height: 23px;
+  min-width: 125px;
+  border: none;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transform: translateX(-40%) translateY(-58%);
+}
+
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2018, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
