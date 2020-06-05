@@ -1,28 +1,62 @@
+import sys
 import param
 import numpy as np
-from panel.pane.markup import DivPaneBase
-from ..models.luminodatagrid import LuminoDataGrid as _BkLuminoDataGrid
+from pyviz_comms import JupyterComm
+from panel.pane.base import PaneBase
+from ..models import LuminoDataGrid as _BkLuminoDataGrid
 
-class LuminoDataGrid(DivPaneBase):
 
-    title = param.String(default="DataTable")
+class LuminoDataGrid(PaneBase):
+
+    json_data = param.Dict()
+
+    selections = param.List(default=[])
+
+    selection_mode = param.ObjectSelector(
+        default='row',
+        objects=['row', 'column', 'cell']
+    )
 
     _rename = {'object': None}
 
-    _bokeh_model = _BkLuminoDataGrid
+    def __init__(self, object=None, **params):
+        params.update({'json_data': self._convert_dataframe(object)})
+        super(LuminoDataGrid, self).__init__(object, **params)
 
     @classmethod
     def applies(cls, obj):
         module = getattr(obj, '__module__', '')
         name = type(obj).__name__
         if (any(m in module for m in ('pandas',)) and
-            name in ('DataFrame',)):
+                name in ('DataFrame',)):
             return True
         else:
             return False
 
     def _get_model(self, doc, root=None, parent=None, comm=None):
-        return super(LuminoDataGrid, self)._get_model(doc, root, parent, comm)
+        """
+        Should return the bokeh model to be rendered.
+        """
+        if 'pnbkext.lumino.models' not in sys.modules:
+            if isinstance(comm, JupyterComm):
+                self.param.warning('Lumino models were not imported on instantiation '
+                                   'and may not render in a notebook. Restart '
+                                   'the notebook kernel and ensure you import Lumino'
+                                   'panes before calling pn.extension()')
+
+        props = self._process_param_change(self._init_properties())
+        model = _BkLuminoDataGrid(**props)
+        if root is None:
+            root = model
+        self._link_props(model, ['json_data', 'selections', 'selection_mode'], doc, root, comm)
+        self._models[root.ref['id']] = (model, parent)
+        return model
+
+    def _init_properties(self):
+        return {k: v for k, v in self.param.get_param_values()
+                if v is not None and k not in [
+                    'default_layout', 'object'
+                ]}
 
     def _get_js_type(self, dtype):
         if np.issubdtype(dtype, np.integer):
@@ -40,14 +74,13 @@ class LuminoDataGrid(DivPaneBase):
         df_reset = df.reset_index()
         data = df_reset.to_dict(orient='records')
         schema = dict(
-            primaryKey = [index_name],
-            fields = [{"name": col, "type":self._get_js_type(df_reset.dtypes[col])} 
+            primaryKey=[index_name],
+            fields=[{"name": col, "type": self._get_js_type(df_reset.dtypes[col])}
                     for col in df_reset.columns]
         )
         return dict(data=data, schema=schema)
 
-    def _get_properties(self):
-        props = super(LuminoDataGrid, self)._get_properties()
-        props.update({"json_data": self._convert_dataframe(self.object),
-                      "title": self.title})
-        return props
+    def _update(self, model=None):
+        self.json_data = self._convert_dataframe(self.object)
+        if model is not None:
+            model.json_data = self.json_data

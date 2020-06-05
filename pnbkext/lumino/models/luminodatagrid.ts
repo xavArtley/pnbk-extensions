@@ -1,5 +1,6 @@
 import * as p from "@bokehjs/core/properties"
 import { HTMLBox, HTMLBoxView } from "@bokehjs/models/layouts/html_box"
+import { div } from "@bokehjs/core/dom"
 
 import {
   BasicKeyHandler,
@@ -8,49 +9,44 @@ import {
   JSONModel,
   DataGrid,
 } from "@lumino/datagrid"
-import { DockPanel, Widget, StackedPanel } from "@lumino/widgets"
-import { div } from "@bokehjs/core/dom"
+import { toArray } from "@lumino/algorithm"
+import { Widget } from "@lumino/widgets"
 
-function createWrapper(content: Widget, title: string): Widget {
-  let wrapper = new StackedPanel()
-  wrapper.addClass("content-wrapper")
-  wrapper.addWidget(content)
-  wrapper.title.label = title
-  return wrapper
+type ClearMode = "all" | "current" | "none"
+type Selection = {
+  r1: number
+  c1: number
+  r2: number
+  c2: number
+  cursorRow?: number
+  cursorColumn?: number
+  clear?: ClearMode
 }
+type SelectionMode = "row" | "column" | "cell"
 
 const greenStripeStyle: DataGrid.Style = {
   ...DataGrid.defaultStyle,
   rowBackgroundColor: (i) => (i % 2 === 0 ? "rgba(64, 115, 53, 0.2)" : ""),
 }
-
 export class LuminoDataGridView extends HTMLBoxView {
   model: LuminoDataGrid
-  protected _dock: DockPanel
+  protected lumino_data_grig: DataGrid
   protected group_el: HTMLDivElement
-  static is_init_css: Boolean = false
-
-  initialize(): void {
-    if (!LuminoDataGridView.is_init_css) {
-      const sheet: CSSStyleSheet = window.document
-        .styleSheets[0] as CSSStyleSheet
-      sheet.insertRule(
-        ".bk-lumino-dock { flex: 1 1 auto; padding: 4px; }",
-        sheet.cssRules.length
-      )
-      LuminoDataGridView.is_init_css = true
-    }
-    super.initialize()
-  }
+  protected _isselecting: boolean
 
   connect_signals(): void {
-    this.on_change(this.model.properties.json_data, () => this.invalidate_render())
+    const p = this.model.properties
+    this.on_change([p.json_data, p.selection_mode], () =>
+      this.invalidate_render()
+    )
+    this.on_change(p.selections, () => {
+      if (!this._isselecting) this._apply_selection()
+    })
   }
 
-  render(): void {
+  plot(): void {
     const lumino_model = new JSONModel(this.model.json_data)
-    super.render()
-    const grid = new DataGrid({
+    this.lumino_data_grig = new DataGrid({
       style: greenStripeStyle,
       defaultSizes: {
         rowHeight: 32,
@@ -59,28 +55,52 @@ export class LuminoDataGridView extends HTMLBoxView {
         columnHeaderHeight: 32,
       },
     })
-    grid.dataModel = lumino_model
-    grid.keyHandler = new BasicKeyHandler()
-    grid.mouseHandler = new BasicMouseHandler()
-    grid.selectionModel = new BasicSelectionModel({
+    this.lumino_data_grig.dataModel = lumino_model
+    this.lumino_data_grig.keyHandler = new BasicKeyHandler()
+    this.lumino_data_grig.mouseHandler = new BasicMouseHandler()
+    this.lumino_data_grig.selectionModel = new BasicSelectionModel({
       dataModel: lumino_model,
-      selectionMode: "row",
+      selectionMode: this.model.selection_mode,
     })
-    this._dock = new DockPanel()
-    this._dock.addClass("bk-lumino-dock")
-    const wrapper = createWrapper(grid, this.model.title)
-    this._dock.addWidget(wrapper)
+    this.lumino_data_grig.selectionModel.changed.connect((sender) => {
+      this._isselecting = true
+      this.model.selections = toArray(sender.selections())
+      this._isselecting = false
+    })
+    this._apply_selection()
+  }
+
+  _apply_selection(): void {
+    this._isselecting = true
+    if (this.model.selections.length > 0) {
+      this.model.selections.forEach((selection) => {
+        this.lumino_data_grig.selectionModel!.select(
+          Object.assign(selection, {
+            cursorRow: selection.cursorRow ? selection.cursorRow : -1,
+            cursorColumn: selection.cursorColumn ? selection.cursorColumn : -1,
+            clear: selection.clear ? selection.clear : "none",
+          })
+        )
+      })
+    }
+    this._isselecting = false
+  }
+
+  render(): void {
+    super.render()
+    this.plot()
     this.group_el = div()
-    this.group_el.style.position = "absolute"
-    this.group_el.style.top = "0"
-    this.group_el.style.bottom = "0"
-    this.group_el.style.left = "0"
-    this.group_el.style.right = "0"
     this.group_el.style.display = "flex"
     this.group_el.style.flexDirection = "column"
+    this.group_el.style.height = "100%"
+    this.lumino_data_grig.node.style.flex = "1 1 auto"
     this.el.appendChild(this.group_el)
-    window.onresize = () => this._dock.update()
-    Widget.attach(this._dock, this.group_el)
+    Widget.attach(this.lumino_data_grig, this.group_el)
+  }
+
+  after_layout(): void {
+    super.after_layout()
+    this.lumino_data_grig.update()
   }
 }
 
@@ -88,7 +108,8 @@ export namespace LuminoDataGrid {
   export type Attrs = p.AttrsOf<Props>
   export type Props = HTMLBox.Props & {
     json_data: p.Property<any>
-    title: p.Property<string>
+    selection_mode: p.Property<SelectionMode>
+    selections: p.Property<Selection[]>
   }
 }
 
@@ -107,8 +128,9 @@ export class LuminoDataGrid extends HTMLBox {
     this.prototype.default_view = LuminoDataGridView
 
     this.define<LuminoDataGrid.Props>({
-      json_data:  [ p.Instance            ],
-      title:      [ p.String, 'DataTable' ],
+      json_data: [p.Instance],
+      selection_mode: [p.Instance, "row"],
+      selections: [p.Array, []],
     })
 
     this.override({
