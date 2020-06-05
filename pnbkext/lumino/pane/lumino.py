@@ -17,6 +17,19 @@ class LuminoDataGrid(PaneBase):
         objects=['row', 'column', 'cell']
     )
 
+    row_header_width = param.Integer(default=64, bounds=(0, None))
+
+    column_header_height = param.Integer(default=32, bounds=(0, None))
+
+    row_height = param.Integer(default=32, bounds=(0, None))
+
+    column_width = param.Integer(default=128, bounds=(0, None))
+
+    gridstyle = param.ObjectSelector(
+        default='green',
+        objects=['green', 'blue', 'brown', 'none']
+    )
+
     _rename = {'object': None}
 
     def __init__(self, object=None, **params):
@@ -48,7 +61,11 @@ class LuminoDataGrid(PaneBase):
         model = _BkLuminoDataGrid(**props)
         if root is None:
             root = model
-        self._link_props(model, ['json_data', 'selections', 'selection_mode'], doc, root, comm)
+        self._link_props(model,
+                         ['json_data', 'selections', 'selection_mode',
+                          'row_header_width', 'column_header_height',
+                          'row_height', 'column_width'],
+                        doc, root, comm)
         self._models[root.ref['id']] = (model, parent)
         return model
 
@@ -56,7 +73,7 @@ class LuminoDataGrid(PaneBase):
         return {k: v for k, v in self.param.get_param_values()
                 if v is not None and k not in [
                     'default_layout', 'object'
-                ]}
+        ]}
 
     def _get_js_type(self, dtype):
         if np.issubdtype(dtype, np.integer):
