@@ -2,8 +2,10 @@ import sys
 import param
 import numpy as np
 from pyviz_comms import JupyterComm
+from panel.layout.base import ListPanel
 from panel.pane.base import PaneBase
-from ..models import LuminoDataGrid as _BkLuminoDataGrid
+from ..models import (LuminoDataGrid as _BkLuminoDataGrid,
+                      LuminoDock as _BkLuminoDock)
 
 
 class LuminoDataGrid(PaneBase):
@@ -101,3 +103,36 @@ class LuminoDataGrid(PaneBase):
         self.json_data = self._convert_dataframe(self.object)
         if model is not None:
             model.json_data = self.json_data
+
+
+
+class LuminoDock(ListPanel):
+    """
+    Horizontal layout of Viewables.
+    """
+
+    _rename = {'name': None, 'objects': 'children', 'dynamic': None, 'active': None}
+
+    _linked_props = []
+
+    _bokeh_model = _BkLuminoDock
+    
+    def __init__(self, *objects, **params):
+        from panel.pane import panel
+        if objects:
+            if 'objects' in params:
+                raise ValueError("A %s's objects should be supplied either "
+                                 "as positional arguments or as a keyword, "
+                                 "not both." % type(self).__name__)
+            params['objects'] = [panel(pane) for name, pane in objects]
+            self._names = [name for name, pane in objects]
+        super(LuminoDock, self).__init__(**params)
+
+    def _process_param_change(self, params):
+        if 'objects' in params:
+            params['children'] = [(name, child) for name, child in zip(self._names, params['objects'])]
+            del params['objects']
+
+        params = super(LuminoDock, self)._process_param_change(params)
+        
+        return params

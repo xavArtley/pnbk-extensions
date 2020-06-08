@@ -113,9 +113,9 @@ export class LuminoDataGridView extends HTMLBoxView {
       this.model.selections.forEach((selection) => {
         this.lumino_data_grig.selectionModel!.select(
           Object.assign(selection, {
-            cursorRow: selection.cursorRow ? selection.cursorRow : -1,
-            cursorColumn: selection.cursorColumn ? selection.cursorColumn : -1,
-            clear: selection.clear ? selection.clear : "none",
+            cursorRow: selection.cursorRow || -1,
+            cursorColumn: selection.cursorColumn || -1,
+            clear: selection.clear || "none",
           })
         )
       })
@@ -124,9 +124,13 @@ export class LuminoDataGridView extends HTMLBoxView {
   }
 
   render(): void {
-    super.render()
     this.plot()
     this.wrapper = createWrapper(this.lumino_data_grig)
+    super.render()
+  }
+
+  _update_layout(): void {
+    super._update_layout()
     this.wrapper.node.style.display = "flex"
     this.wrapper.node.style.flexDirection = "column"
     this.wrapper.node.style.height = "100%"

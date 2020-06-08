@@ -5,3 +5,4 @@ defined as pairs of Python classes and TypeScript models defined in .ts
 files.
 """
 from .luminodatagrid import LuminoDataGrid
+from .luminodock import LuminoDock
