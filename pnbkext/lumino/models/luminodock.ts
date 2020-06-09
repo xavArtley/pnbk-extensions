@@ -1,36 +1,51 @@
 import * as p from "@bokehjs/core/properties"
-
+import { each } from "@lumino/algorithm"
 import { DockPanel, BoxPanel, Widget } from "@lumino/widgets"
 import { Message } from "@lumino/messaging"
 import { HTMLBox, HTMLBoxView } from "@bokehjs/models/layouts/html_box"
 import { LayoutDOM, LayoutDOMView } from "@bokehjs/models/layouts/layout_dom"
 import { Grid } from "@bokehjs/core/layout"
-import { empty, position } from "@bokehjs/core/dom"
+import { empty } from "@bokehjs/core/dom"
 
 class BkBoxPanel extends BoxPanel {
-  protected bkview: LayoutDOMView
+  protected bkmodel: LayoutDOM
+  protected bkcontainer: LuminoDockView
 
   constructor(
     title: string,
-    bkview: LayoutDOMView,
+    bkmodel: LayoutDOM,
+    bkcontainer: LuminoDockView,
     options: BoxPanel.IOptions = {}
   ) {
     super(options)
-    this.bkview = bkview
+    this.bkmodel = bkmodel
+    this.bkcontainer = bkcontainer
     this.title.label = title
-    this.node.appendChild(bkview.el)
+    this.node.appendChild(this.bkview.el)
     this.node.style.overflow = "auto"
   }
 
+  get bkview(): LayoutDOMView {
+    return this.bkcontainer.child_views[
+      this.bkcontainer.child_models.indexOf(this.bkmodel)
+    ]
+  }
+
   processMessage(msg: Message): void {
-    if (
-      ["resize", "update-request", "activate-request"].indexOf(msg.type) > -1
-    ) {
-      if (this.isVisible) {
-        let {width, height} = this.node.getBoundingClientRect()
-        width -= Number(this.node.style.borderLeft || 0) + Number(this.node.style.borderRight || 0)
-        height -= Number(this.node.style.borderBottom || 0) + Number(this.node.style.borderTop || 0)
-        this.bkview.layout.compute({width: width-2, height: height-2})
+    console.log(msg.type)
+    if (this.isVisible) {
+      if (
+        ["resize", "update-request"].indexOf(msg.type) > -1
+      ) {
+        let { width, height } = this.node.getBoundingClientRect()
+        width -=
+          Number(this.node.style.borderLeft || 0) +
+          Number(this.node.style.borderRight || 0)
+        height -=
+          Number(this.node.style.borderBottom || 0) +
+          Number(this.node.style.borderTop || 0)
+        this.bkview.update_layout()
+        this.bkview.layout.compute({ width: width - 4, height: height - 4})
         this.bkview.update_position()
         this.bkview.after_layout()
         this.bkview.notify_finished()
@@ -45,10 +60,15 @@ export class LuminoDockView extends HTMLBoxView {
   layout: Grid
   protected _dock: DockPanel
   protected group_el: HTMLDivElement
-  static is_init_css: Boolean = false
+  protected _compute_layout: boolean = true
 
   initialize(): void {
     super.initialize()
+    this.parent.root.el.onresize = () => {
+      console.log("resize?")
+      if(this._dock)
+        this._dock.update()
+    }
   }
 
   connect_signals(): void {
@@ -60,38 +80,38 @@ export class LuminoDockView extends HTMLBoxView {
     return this.model.children.map((child) => child[1])
   }
 
-  get tab_titles(): string[] {
-    return this.model.children.map((child) => child[0])
-  }
-
   render(): void {
-    console.log("Render")
     this._dock = new DockPanel()
+    this._dock.node.style.width = "100%"
+    this._dock.node.style.height = "100%"
     super.render()
   }
 
-  update_position(): void {
-    this.el.style.display = this.model.visible ? "block" : "none"
-    const margin = this.is_root ? this.layout.sizing.margin : undefined
-    position(this.el, this.layout.bbox, margin)
-    position(this._dock.node, this.layout.bbox, margin)
-  }
-
   _update_layout(): void {
+    console.log('update layout')
     const panels = this.child_views.map((child_view) => {
       return { layout: child_view.layout, row: 0, col: 0 }
     })
     this.layout = new Grid([...panels])
     this.layout.set_sizing(this.box_sizing())
-    empty(this.el) // children will be added to LuminoWidgets (BkBoxPanel)
-    for(let idx=0; idx<this.model.children.length; idx++){
-      const widget = new BkBoxPanel(this.tab_titles[idx], this.child_views[idx])
-      this._dock.addWidget(widget)
+    this.layout.compute(this._viewport)
+    this.update_position()
+    if (!this._dock.isAttached) {
+      empty(this.el) // children will be added to LuminoWidgets (BkBoxPanel)
+      this.model.children.forEach((item) => {
+        const widget = new BkBoxPanel(item[0], item[1], this)
+        this._dock.addWidget(widget)
+      })
+      Widget.attach(this._dock, this.el)
     }
-    Widget.attach(this._dock, this.el)
+  }
+
+  compute_layout(): void {
+    each(this._dock.widgets(), (widget) => widget.update())
   }
 
   after_layout(): void {
+    this.compute_layout()
     this._dock.update()
     this._has_finished = true
   }

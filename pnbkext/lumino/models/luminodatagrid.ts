@@ -131,11 +131,13 @@ export class LuminoDataGridView extends HTMLBoxView {
 
   _update_layout(): void {
     super._update_layout()
-    this.wrapper.node.style.display = "flex"
-    this.wrapper.node.style.flexDirection = "column"
-    this.wrapper.node.style.height = "100%"
-    this.lumino_data_grig.node.style.flex = "1 1 auto"
-    Widget.attach(this.wrapper, this.el)
+    if(!this.wrapper.isAttached) {
+      this.wrapper.node.style.display = "flex"
+      this.wrapper.node.style.flexDirection = "column"
+      this.wrapper.node.style.height = "100%"
+      this.lumino_data_grig.node.style.flex = "1 1 auto"
+      Widget.attach(this.wrapper, this.el)
+    }
   }
 
   after_layout(): void {
