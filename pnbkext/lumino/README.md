@@ -1,5 +1,5 @@
 ## Dock example
 ![Alt Text](https://xavartley.github.io/dev/lumino_dock.gif)
 
-## Grid example
+## DataGrid example
 ![Alt Text](https://xavartley.github.io/dev/lumino.gif)
