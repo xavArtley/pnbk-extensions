@@ -1,13 +1,13 @@
 import * as p from "@bokehjs/core/properties"
-import { each } from "@lumino/algorithm"
-import { DockPanel, BoxPanel, Widget } from "@lumino/widgets"
+import { each, toArray } from "@lumino/algorithm"
+import { DockPanel, Widget, DockLayout } from "@lumino/widgets"
 import { Message } from "@lumino/messaging"
 import { HTMLBox, HTMLBoxView } from "@bokehjs/models/layouts/html_box"
 import { LayoutDOM, LayoutDOMView } from "@bokehjs/models/layouts/layout_dom"
 import { Grid } from "@bokehjs/core/layout"
 import { empty } from "@bokehjs/core/dom"
 
-class BkBoxPanel extends BoxPanel {
+class BkBoxPanel extends Widget {
   protected bkmodel: LayoutDOM
   protected bkcontainer: LuminoDockView
 
@@ -15,9 +15,10 @@ class BkBoxPanel extends BoxPanel {
     title: string,
     bkmodel: LayoutDOM,
     bkcontainer: LuminoDockView,
-    options: BoxPanel.IOptions = {}
+    options: Widget.IOptions = {}
   ) {
     super(options)
+    this.setFlag(Widget.Flag.DisallowLayout)
     this.bkmodel = bkmodel
     this.bkcontainer = bkcontainer
     this.title.label = title
@@ -35,7 +36,7 @@ class BkBoxPanel extends BoxPanel {
     console.log(msg.type)
     if (this.isVisible) {
       if (
-        ["resize", "update-request"].indexOf(msg.type) > -1
+        ["resize", "update-request", "activate-request"].indexOf(msg.type) > -1
       ) {
         let { width, height } = this.node.getBoundingClientRect()
         width -=
@@ -100,7 +101,8 @@ export class LuminoDockView extends HTMLBoxView {
       empty(this.el) // children will be added to LuminoWidgets (BkBoxPanel)
       this.model.children.forEach((item) => {
         const widget = new BkBoxPanel(item[0], item[1], this)
-        this._dock.addWidget(widget)
+        const ref = item[3]? toArray(this._dock.widgets())[item[3]] : null
+        this._dock.addWidget(widget, {mode: item[2], ref})
       })
       Widget.attach(this._dock, this.el)
     }
@@ -120,7 +122,7 @@ export class LuminoDockView extends HTMLBoxView {
 export namespace LuminoDock {
   export type Attrs = p.AttrsOf<Props>
   export type Props = HTMLBox.Props & {
-    children: p.Property<[string, LayoutDOM][]>
+    children: p.Property<[string, LayoutDOM, DockLayout.InsertMode?, number?][]>
   }
 }
 

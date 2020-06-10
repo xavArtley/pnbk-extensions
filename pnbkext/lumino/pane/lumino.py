@@ -67,7 +67,7 @@ class LuminoDataGrid(PaneBase):
                          ['json_data', 'selections', 'selection_mode',
                           'row_header_width', 'column_header_height',
                           'row_height', 'column_width'],
-                        doc, root, comm)
+                         doc, root, comm)
         self._models[root.ref['id']] = (model, parent)
         return model
 
@@ -105,18 +105,21 @@ class LuminoDataGrid(PaneBase):
             model.json_data = self.json_data
 
 
-
 class LuminoDock(ListPanel):
     """
     Horizontal layout of Viewables.
     """
 
-    _rename = {'name': None, 'objects': 'children', 'dynamic': None, 'active': None}
+    _rename = {'name': None, 'objects': 'children',
+               'dynamic': None, 'active': None}
 
     _linked_props = []
 
     _bokeh_model = _BkLuminoDock
-    
+
+    __available_insert_modes = ["split-top",  "split-left",
+                                "split-right", "split-bottom", "tab-before", "tab-after"]
+
     def __init__(self, *objects, **params):
         from panel.pane import panel
         if objects:
@@ -124,15 +127,32 @@ class LuminoDock(ListPanel):
                 raise ValueError("A %s's objects should be supplied either "
                                  "as positional arguments or as a keyword, "
                                  "not both." % type(self).__name__)
-            params['objects'] = [panel(pane) for name, pane in objects]
-            self._names = [name for name, pane in objects]
+            params['objects'] = []
+            self._names = []
+            self._insert_mode = []
+            self._refs = []
+            for idx, obj in enumerate(objects):
+                assert len(obj) >= 2
+                self._names.append(obj[0])
+                params['objects'].append(panel(obj[1]))
+                insert_mode = obj[2] if len(obj) > 2 else "tab-after"
+                assert insert_mode in self.__available_insert_modes
+                self._insert_mode.append(insert_mode)
+                if len(obj) > 3:
+                    ref = obj[3]
+                    assert ref < idx
+                else:
+                    ref = None
+                self._refs.append(ref)
+
         super(LuminoDock, self).__init__(**params)
 
     def _process_param_change(self, params):
         if 'objects' in params:
-            params['children'] = [(name, child) for name, child in zip(self._names, params['objects'])]
+            params['children'] = [(name, pane, insert_mode, ref) for name, pane, insert_mode, ref in zip(
+                self._names, params['objects'], self._insert_mode, self._refs)]
             del params['objects']
 
         params = super(LuminoDock, self)._process_param_change(params)
-        
+
         return params
